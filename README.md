@@ -1,4 +1,4 @@
-# mai_visual_identity_generator
+# Visual Identity System for the MAI Program
 
 This system generates visual compositions that serve as the visual identity of the [Master in Artificial Intelligence (MAI)](https://www.dei.uc.pt/mia) at the University of Coimbra. Designed as a generative and dynamic approach to branding, the compositions are built from a grid-based layout that integrates custom typographic elements with rich media sources such as images and videos. The result is a flexible visual system capable of producing endless variations, suitable for posters, animations, and digital media.
 
@@ -34,10 +34,10 @@ Use the keyboard to interact with the system. Here’s what each key does:
 
 | Key         | Description |
 |-------------|-------------|
-| ← (LEFT)    | Move the logo one column to the left in the grid. |
-| → (RIGHT)   | Move the logo one column to the right in the grid. |
-| ↑ (UP)      | Move the logo one row up in the grid. |
-| ↓ (DOWN)    | Move the logo one row down in the grid. |
+| `←` (Left)    | Move the logo one column to the left in the grid. |
+| `→` (Right)   | Move the logo one column to the right in the grid. |
+| `↑` (Up)      | Move the logo one row up in the grid. |
+| `↓` (Down)    | Move the logo one row down in the grid. |
 | `1`, `2`, `3` | Change the grid mode. Each mode defines a different grid layout logic. |
 | `4`         | Toggle the visibility of the logo. When off, only the media/grid is shown. |
 | `d`         | Toggle debug mode. |
@@ -52,4 +52,4 @@ Use the keyboard to interact with the system. Here’s what each key does:
 
 ### Exporting Video
 
-The system supports video creation by exporting an image sequence of animation frames. These frames are saved into the `outputs` folder and can be compiled into a video using software such as QuickTime, ffmpeg, or any other tool that supports frame sequences. When creating the final video, make sure to use the correct frame rate, which is defined by the `fps` parameter in the sketch. This ensures that the timing and playback speed of the final video match the intended animation.
+The system supports video creation by exporting an image sequence of animation frames. These frames are saved into the `outputs` folder and can be compiled into a video using software such as QuickTime ([instructions](https://support.apple.com/en-gb/guide/quicktime-player/qtp315cce984/mac)), ffmpeg, or any other tool that supports frame sequences. When creating the final video, make sure to use the correct frame rate, which is defined by the `fps` parameter in the sketch. This ensures that the timing and playback speed of the final video match the intended animation.
