@@ -89,7 +89,7 @@ class Grid {
   }
 
   Cell getCell(int colIndex, int rowIndex) {
-    return cells[rowIndex][colIndex];
+    return cells[rowIndex >= 0 ? rowIndex : getNumRows() + rowIndex][colIndex >= 0 ? colIndex : getNumCols() + colIndex];
   }
 
   float getWidth() {

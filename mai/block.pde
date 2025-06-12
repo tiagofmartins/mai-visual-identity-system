@@ -65,7 +65,12 @@ class Block {
 
     // Draw textured rectangle
     pg.push();
-    pg.noStroke();
+    if (feednplayMode) {
+      pg.stroke(logoColours[selectedLogoColour]);
+      pg.strokeWeight(0.5);
+    } else {
+      pg.noStroke();
+    }
     pg.textureMode(NORMAL);
     pg.beginShape();
     pg.texture(source);

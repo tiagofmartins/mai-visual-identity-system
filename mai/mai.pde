@@ -19,13 +19,20 @@ float gridAnimationSpeed = 0.0015; // Increment to be added to the Perlin noise 
 
 int logoCol = 1; // Logo horizontal position (column index)
 int logoRow = 1; // Logo vertical position (row index)
-color[] logoColours = {#000000, #0000FF, #8cff00, #6600ff}; // Options for the logo colour
+color[] logoColours = {#000000, #FFFFFF, #0000FF, #8cff00, #6600ff}; // Options for the logo colour
 
-String pathInputMedia = "media/DFDj8c8uqMs.jpg";
+String pathInputMedia = "photos_highres/photo2.jpg";
 //String pathInputMedia = "media/C53dxFctxG9.mp4";
 float minCropZoom = 0.8; // 1 means no zoom
 float maxCropZoom = 1.2; // 1 means no zoom
 float maxCropDisplacement = 0.1; // 0 means no displacement
+
+boolean feednplayMode = true;
+//PImage qrCodeImage = null;
+//PVector qrCodePosition = null;
+TickerBar ticker;
+int currImageIndex = 0;
+
 
 // End of user-controlled parameters
 // --------------------------------------------------------------------------------
@@ -53,13 +60,28 @@ boolean exportFrames = false;
 int exportedFrames = 0;
 File outputDir = null;
 
-
 void settings() {
-  size(w, h, P3D);
+  if (feednplayMode) {
+    //fullScreen(P3D);
+    float scale = 3;
+    size(int(970 * scale), int(192 * scale), P3D);
+  } else {
+    size(w, h, P3D);
+  }
   smooth(8);
 }
 
 void setup() {
+  if (feednplayMode) {
+    fps = 60;
+    rows = 16;
+    columns = round(rows * (width / (float) height));
+    margin = 0;
+    animateGrid = true;
+    //qrCodeImage = loadImage("qrcode/qrcode-white.png");
+    ticker = new TickerBar(0.05, 2);
+  }
+
   frameRate(fps);
   surface.setResizable(true);
 
@@ -68,7 +90,9 @@ void setup() {
 }
 
 void draw() {
-  updateWindowTitle();
+  if (!feednplayMode) {
+    updateWindowTitle();
+  }
   if (frameCount == 1) {
     loadInputMedia();
   }
@@ -85,6 +109,7 @@ void draw() {
     grid.animate(gridAnimationSpeed);
   }
 
+  //background(screenSaverMode ? 0 : 255);
   background(255);
   translate(margin, margin);
 
@@ -129,6 +154,57 @@ void draw() {
     if (outputDir != null) {
       outputDir = null;
     }
+  }
+
+  if (feednplayMode) {
+    if (frameCount % (60 * 4) == 0) {
+      if (frameCount % (60 * 30) == 0) {
+        selectedConfigIndex = int(random(configs.length));
+        createGrid();
+        currImageIndex = (currImageIndex + 1) % 8;
+        pathInputMedia = "photos_highres/photo" + (currImageIndex + 1) + ".jpg";
+        loadInputMedia();
+        cropInputMediaBasedOnGridSize();
+      }
+      logoCol = int(random(0, grid.getNumCols() - configs[selectedConfigIndex].getNumCols() - 1));
+      logoRow = int(random(0, grid.getNumRows() - configs[selectedConfigIndex].getNumRows() - 1));
+    }
+
+    hint(DISABLE_DEPTH_TEST);
+
+    /*
+    int qrColLeft = -3;
+     int qrRowTop = -3;
+     Cell qrTopLeftCell = grid.getCell(qrColLeft, qrRowTop);
+     Cell qrBottomRightCell = grid.getCell(qrColLeft + 1, qrRowTop + 1);
+     float qrX = qrTopLeftCell.x;
+     float qrY = qrTopLeftCell.y;
+     float qrW = (qrBottomRightCell.x + qrBottomRightCell.w) - qrX;
+     float qrH = (qrBottomRightCell.y + qrBottomRightCell.h) - qrY;
+     float qrMargin = 0.1 * min(qrW, qrH);
+     float[] qrSize = resizeToFitInside(qrCodeImage.width, qrCodeImage.height, qrW - qrMargin * 2, qrH - qrMargin * 2);
+     
+     stroke(logoColours[selectedLogoColour]);
+     strokeWeight(0.5);
+     fill(0);
+     rect(qrX, qrY, qrW, qrH);
+     
+     pushStyle();
+     //tint(logoColours[selectedLogoColour]);
+     imageMode(CENTER);
+     image(qrCodeImage, qrX + qrW / 2, qrY + qrH / 2, qrSize[0], qrSize[1]);
+     popStyle();
+     
+     fill(0, 255, 0);
+     //Block b = blocks.get(int(random(blocks.size())));
+     Block b = blocks.get(0);
+     drawTextBox("Isto é um teste.<br>Olá.<br>Tiago Martins Tiago Martins Tiago Martins", b.getX(), b.getY(), b.getWidth(), b.getHeight(), 10);
+     */
+
+    ticker.update();
+    ticker.display();
+
+    hint(ENABLE_DEPTH_TEST);
   }
 }
 
@@ -177,7 +253,11 @@ void keyReleased() {
 
 
 void createGrid() {
-  grid = new Grid(width - margin * 2, height - margin * 2, columns, rows);
+  if (feednplayMode) {
+    grid = new Grid(width, height - ticker.barHeight, columns, rows);
+  } else {
+    grid = new Grid(width - margin * 2, height - margin * 2, columns, rows);
+  }
   calculateBlocks();
 }
 
