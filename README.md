@@ -13,20 +13,19 @@ Below is a list of the main parameters and what they control in the system.
 |------------------------|-------------|
 | `w`                    | Width of the composition in pixels, including margin. |
 | `h`                    | Height of the composition in pixels, including margin. |
-| `margin`               | Space, in pixels, added as outer margin around the composition. |
-| `fps`                  | Frames per second used during animation and [video export](#exporting-video). |
+| `margin`               | Space in pixels added as outer margin around the composition. |
 | `columns`              | Number of columns in the layout grid. |
 | `rows`                 | Number of rows in the layout grid. |
 | `animateGrid`          | If `true`, the grid will animate using Perlin noise over time. |
 | `gridAnimationSpeed`   | Speed of Perlin noise-based animation; higher values increase motion intensity. |
 | `logoCol`              | Horizontal position of the logo in the grid (column index). |
 | `logoRow`              | Vertical position of the logo in the grid (row index). |
-| `logoColours`          | Array of preset colors that can be used for the logo. |
+| `logoColours`          | Array of preset colours that can be used for the logo. |
 | `pathInputMedia`       | File path to the input image or video used as background media. |
 | `minCropZoom`          | Minimum zoom applied to cropped media content. |
 | `maxCropZoom`          | Maximum zoom applied to cropped media content. |
 | `maxCropDisplacement`  | Maximum offset for randomly displacing the cropped area; `0` means no displacement. |
-
+| `fps`                  | Frames per second used during animation and [video export](#exporting-video). |
 
 ### Keyboard Shortcuts
 
@@ -38,14 +37,14 @@ Use the keyboard to interact with the system. Here’s what each key does:
 | `→` (Right)   | Move the logo one column to the right in the grid. |
 | `↑` (Up)      | Move the logo one row up in the grid. |
 | `↓` (Down)    | Move the logo one row down in the grid. |
-| `1`, `2`, `3` | Change the grid mode. Each mode defines a different grid layout logic. |
-| `4`         | Toggle the visibility of the logo. When off, only the media/grid is shown. |
-| `d`         | Toggle debug mode. |
 | `g`         | Generate a new grid. |
 | `l`         | Load a random configuration for the logo from the available set of options. |
 | `Enter`     | Load a random configuration and immediately regenerate the grid. Useful for exploring new variations quickly. |
 | `c`         | Cycle through the available logo colours. |
 | `Space`     | Toggle grid animation. When enabled, the grid deforms over time using Perlin noise. |
+| `1`, `2`, `3` | Change the grid mode. Each mode defines a different grid layout logic. |
+| `4`         | Toggle the visibility of the logo. When off, only the media/grid is shown. |
+| `d`         | Toggle debug mode. |
 | `e`         | Toggle multi-frame export. Only available if single-frame export is off. |
 | `s`         | Toggle single-frame export. Only available if multi-frame export is off. |
 
