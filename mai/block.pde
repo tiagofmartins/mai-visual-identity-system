@@ -67,7 +67,7 @@ class Block {
     pg.push();
     if (feednplayMode) {
       pg.stroke(logoColours[selectedLogoColour]);
-      pg.strokeWeight(0.5);
+      pg.strokeWeight(1.5);
     } else {
       pg.noStroke();
     }

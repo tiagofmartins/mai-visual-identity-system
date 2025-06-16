@@ -28,8 +28,6 @@ float maxCropZoom = 1.2; // 1 means no zoom
 float maxCropDisplacement = 0.1; // 0 means no displacement
 
 boolean feednplayMode = true;
-//PImage qrCodeImage = null;
-//PVector qrCodePosition = null;
 TickerBar ticker;
 int currImageIndex = 0;
 
@@ -62,9 +60,9 @@ File outputDir = null;
 
 void settings() {
   if (feednplayMode) {
-    //fullScreen(P3D);
-    float scale = 3;
-    size(int(970 * scale), int(192 * scale), P3D);
+    fullScreen(P3D);
+    //float scale = 3;
+    //size(int(970 * scale), int(192 * scale), P3D);
   } else {
     size(w, h, P3D);
   }
@@ -78,7 +76,6 @@ void setup() {
     columns = round(rows * (width / (float) height));
     margin = 0;
     animateGrid = true;
-    //qrCodeImage = loadImage("qrcode/qrcode-white.png");
     ticker = new TickerBar(0.05, 2);
   }
 
@@ -171,39 +168,8 @@ void draw() {
     }
 
     hint(DISABLE_DEPTH_TEST);
-
-    /*
-    int qrColLeft = -3;
-     int qrRowTop = -3;
-     Cell qrTopLeftCell = grid.getCell(qrColLeft, qrRowTop);
-     Cell qrBottomRightCell = grid.getCell(qrColLeft + 1, qrRowTop + 1);
-     float qrX = qrTopLeftCell.x;
-     float qrY = qrTopLeftCell.y;
-     float qrW = (qrBottomRightCell.x + qrBottomRightCell.w) - qrX;
-     float qrH = (qrBottomRightCell.y + qrBottomRightCell.h) - qrY;
-     float qrMargin = 0.1 * min(qrW, qrH);
-     float[] qrSize = resizeToFitInside(qrCodeImage.width, qrCodeImage.height, qrW - qrMargin * 2, qrH - qrMargin * 2);
-     
-     stroke(logoColours[selectedLogoColour]);
-     strokeWeight(0.5);
-     fill(0);
-     rect(qrX, qrY, qrW, qrH);
-     
-     pushStyle();
-     //tint(logoColours[selectedLogoColour]);
-     imageMode(CENTER);
-     image(qrCodeImage, qrX + qrW / 2, qrY + qrH / 2, qrSize[0], qrSize[1]);
-     popStyle();
-     
-     fill(0, 255, 0);
-     //Block b = blocks.get(int(random(blocks.size())));
-     Block b = blocks.get(0);
-     drawTextBox("Isto é um teste.<br>Olá.<br>Tiago Martins Tiago Martins Tiago Martins", b.getX(), b.getY(), b.getWidth(), b.getHeight(), 10);
-     */
-
     ticker.update();
     ticker.display();
-
     hint(ENABLE_DEPTH_TEST);
   }
 }
@@ -340,7 +306,7 @@ void calculateBlocks() {
 
 
 void loadLogoConfigs() {
-  File folder = new File(dataPath("letters"));
+  File folder = new File(dataPath("letters-pt"));
   assert folder.isDirectory();
   File[] files = folder.listFiles();
   Arrays.sort(files);
